@@ -1,0 +1,148 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+body {
+  background: url(../img/bg.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: 'Muli', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  color: #616161;
+}
+
+.container {
+  max-width: 500px;
+  position: relative;
+  display: flex;
+  // height: 100vh;
+
+  .upload-area {
+    width: calc(100% - 30px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 250px;
+    background-color: #ffffff35;
+    border-radius: 7px;
+    border: 2px dashed #ddd;
+    align-self: center;
+    position: absolute;
+    transition: transform 0.2s ease-in;
+
+
+    #upload-label {
+      max-width: 200px;
+      height: 50px;
+      margin-top: 30px;
+    }
+
+    #upload-input {
+      height: 0.1px;
+      width: 0.1px;
+      opacity: 0;
+      position: absolute;
+      z-index: -1;
+    }
+
+  }
+
+  .dragged-over {
+    background-color: rgba(107, 169, 234, 0.25);
+    border-width: 3px;
+    border-color: #eee;
+    color: #eee;
+
+    #upload-label {
+      display: none;
+    }
+  }
+
+  .editor {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 100%;
+
+    .upper-controls {
+      display: flex;
+      justify-content: space-between;
+
+      .top-controls {
+        display: flex;
+        flex-wrap: nowrap;
+
+        .input-group {
+          max-width: 130px;
+        }
+      }
+    }
+
+    #canvas {
+      width: 100%;
+      height: 400px;
+    }
+
+    .bottom-controls {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  .space {
+    width: 4px;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .material-icons {
+    font-size: 1rem;
+  }
+
+  .dark-mode {
+
+    .custom-select {
+      color: #fff;
+      background-color: #6c757d;
+      border-color: #6c757d;
+      cursor: pointer;
+    }
+
+    .input-group-text {
+      color: #fff;
+      background-color: #545b62;
+      border-color: #545b62;
+    }
+
+  }
+
+  .hidden {
+    transform: scale(0);
+  }
+}

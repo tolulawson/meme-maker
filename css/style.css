@@ -15,10 +15,114 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
+
+body {
+  background: url(../img/bg.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: "Muli", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  color: #616161;
+}
+
+.container {
+  max-width: 500px;
+  position: relative;
+  display: flex;
+}
+.container .upload-area {
+  width: calc(100% - 30px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  height: 250px;
+  background-color: #ffffff35;
+  border-radius: 7px;
+  border: 2px dashed #ddd;
+  align-self: center;
+  position: absolute;
+  transition: transform 0.2s ease-in;
+}
+.container .upload-area #upload-label {
+  max-width: 200px;
+  height: 50px;
+  margin-top: 30px;
+}
+.container .upload-area #upload-input {
+  height: 0.1px;
+  width: 0.1px;
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+.container .dragged-over {
+  background-color: rgba(107, 169, 234, 0.25);
+  border-width: 3px;
+  border-color: #eee;
+  color: #eee;
+}
+.container .dragged-over #upload-label {
+  display: none;
+}
+.container .editor {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+.container .editor .upper-controls {
+  display: flex;
+  justify-content: space-between;
+}
+.container .editor .upper-controls .top-controls {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.container .editor .upper-controls .top-controls .input-group {
+  max-width: 130px;
+}
+.container .editor #canvas {
+  width: 100%;
+  height: 400px;
+}
+.container .editor .bottom-controls {
+  display: flex;
+  justify-content: space-between;
+}
+.container .space {
+  width: 4px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.container .material-icons {
+  font-size: 1rem;
+}
+.container .dark-mode .custom-select {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+  cursor: pointer;
+}
+.container .dark-mode .input-group-text {
+  color: #fff;
+  background-color: #545b62;
+  border-color: #545b62;
+}
+.container .hidden {
+  transform: scale(0);
+}
+
+/*# sourceMappingURL=style.css.map */
