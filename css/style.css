@@ -35,10 +35,19 @@ body {
   color: #616161;
 }
 
+@font-face {
+  font-family: 'Impact';
+  src: url('impact.ttf');
+  src: url('impact.ttf')  format('truetype');
+}
+
 .container {
   max-width: 500px;
   position: relative;
   display: flex;
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
 }
 .container .upload-area {
   width: calc(100% - 30px);
@@ -51,8 +60,9 @@ body {
   background-color: #ffffff35;
   border-radius: 7px;
   border: 2px dashed #ddd;
-  align-self: center;
   position: absolute;
+  top: 50%;
+  margin-top: -125px;
   transition: transform 0.2s ease-in;
 }
 .container .upload-area #upload-label {
@@ -92,6 +102,13 @@ body {
   max-width: 100px;
 }
 .container #canvas {
+  width: 100%;
+  height: auto;
+  -webkit-box-shadow: 2px 6px 9px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: 2px 6px 9px 2px rgba(0, 0, 0, 0.25);
+  display: none;
+}
+.container #stage {
   width: 100%;
   height: auto;
   -webkit-box-shadow: 2px 6px 9px 2px rgba(0, 0, 0, 0.25);
