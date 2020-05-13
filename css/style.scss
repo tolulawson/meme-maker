@@ -94,26 +94,27 @@ body {
     .upper-controls {
       display: flex;
       justify-content: space-between;
-
-      .top-controls {
-        display: flex;
-        flex-wrap: nowrap;
+      flex-wrap: nowrap;
 
         .input-group {
-          max-width: 130px;
+          max-width: 100px;
         }
       }
     }
 
     #canvas {
       width: 100%;
-      height: 400px;
+      height: auto;
+      -webkit-box-shadow: 2px 6px 9px 2px rgba(0,0,0,0.25);
+      box-shadow: 2px 6px 9px 2px rgba(0,0,0,0.25);
     }
 
     .bottom-controls {
       display: flex;
       justify-content: space-between;
+      margin: 1rem 0;
     }
+
   }
   .space {
     width: 4px;
@@ -122,7 +123,8 @@ body {
   }
 
   .material-icons {
-    font-size: 1rem;
+    line-height: 1;
+    vertical-align: bottom;
   }
 
   .dark-mode {
@@ -145,4 +147,22 @@ body {
   .hidden {
     transform: scale(0);
   }
+
+  .flex {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 38px;
+  }
+
+  .top-controls {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+// .text-input {
+//   max-width: 70%;
+// }
+
+#inputGroupSelect01 {
+  max-width: 80px;
 }

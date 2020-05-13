@@ -86,43 +86,63 @@ body {
 .container .editor .upper-controls {
   display: flex;
   justify-content: space-between;
-}
-.container .editor .upper-controls .top-controls {
-  display: flex;
   flex-wrap: nowrap;
 }
-.container .editor .upper-controls .top-controls .input-group {
-  max-width: 130px;
+.container .editor .upper-controls .input-group {
+  max-width: 100px;
 }
-.container .editor #canvas {
+.container #canvas {
   width: 100%;
-  height: 400px;
+  height: auto;
+  -webkit-box-shadow: 2px 6px 9px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: 2px 6px 9px 2px rgba(0, 0, 0, 0.25);
 }
-.container .editor .bottom-controls {
+.container .bottom-controls {
   display: flex;
   justify-content: space-between;
+  margin: 1rem 0;
 }
-.container .space {
+
+.space {
   width: 4px;
   display: inline-block;
   flex-shrink: 0;
 }
-.container .material-icons {
-  font-size: 1rem;
+
+.material-icons {
+  line-height: 1;
+  vertical-align: bottom;
 }
-.container .dark-mode .custom-select {
+
+.dark-mode .custom-select {
   color: #fff;
   background-color: #6c757d;
   border-color: #6c757d;
   cursor: pointer;
 }
-.container .dark-mode .input-group-text {
+.dark-mode .input-group-text {
   color: #fff;
   background-color: #545b62;
   border-color: #545b62;
 }
-.container .hidden {
+
+.hidden {
   transform: scale(0);
+}
+
+.flex {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 38px;
+}
+
+.top-controls {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+#inputGroupSelect01 {
+  max-width: 80px;
 }
 
 /*# sourceMappingURL=style.css.map */
