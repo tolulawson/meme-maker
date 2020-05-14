@@ -1,33 +1,29 @@
 $('#clear-button').on('shown.bs.modal', function () {
   $('#clear-button').trigger('focus')
-});
+}); // Code snippet to enable bootstrap modal
 
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
-});
+}); // Code snippet to enable bootstrap tooltip
 
-//Global variable declarations
+
+
+// -- Global variable declarations
 
 
 let $selectedImage;
-// let canvas = $('#canvas')[0];
-//
-// // canvas.width = 1000; //set canvas width to 2x max-width. This make image resolution look good on hig resolution screens
-//
-// let ctx = canvas.getContext('2d');
 let img = document.createElement('img');
 
-let currentRotationDegree = 0;
-let textPosition = 0;
 
-
+// -- Extract image object from selected file input
 function assignSelectedFileFromInput (event) {
   $selectedImage = this.files[0];
   img.src = URL.createObjectURL($selectedImage);
   img.id = 'canvas-img';
-  $('#upload-form').submit();
+  $('#upload-form').submit(); // Painting the selected image to stage is handled upon submit of the form the input is a field of
 }
 
+// -- Bind image object function to changes in input
 $('#upload-input').on('input', assignSelectedFileFromInput);
 
 function highlightOnDragOver() {
@@ -63,108 +59,15 @@ function imageDropped(event) {
 
 }
 
-// function drawImage() {
-//   img.onload = function() {
-//     canvas.height = img.naturalHeight * canvas.width / img.naturalWidth; // -- Set canvas height based on aspect ratio of selected image. Canvas width is constant.
-//
-//     $('#canvas').height(img.naturalHeight / img.naturalWidth * $('#canvas').width());
-//     ctx.drawImage(img,0,0,canvas.width,canvas.height); // -- Set canvas apparent height to match aspect ratio of image selected. This is important when this function is called after a crop had be previously applied.
-//
-//     $('#square-crop').removeClass('active');
-//   }
-//
-// }
-
-// -- Download canvas image to file
-
-
-function rotateCanvas() {
-
-  function calcTranslate(deg) {
-    if (deg === 0) {
-      return [-canvas.width, 0, canvas.width, canvas.height];
-    }
-
-    if (deg === -90) {
-      return [0, canvas.height, canvas.height, canvas.width];
-    }
-
-    if (deg === -180) {
-      return [0, 0, canvas.width, canvas.height];
-    }
-
-    if (deg === -270) {
-      return [0, -canvas.height, canvas.height, canvas.width];
-    }
-  }
-
-  function storeCurrentRotationDegree() {
-    if (currentRotationDegree === -270) {
-      currentRotationDegree = 0;
-    }
-
-    else {
-      currentRotationDegree -= 90;
-    }
-  }
-
-  ctx.clearRect(0,0,canvas.width, canvas.height);
-  $('#canvas').height($('#canvas').width()*$('#canvas').width()/$('#canvas').height());
-  ctx.save();
-  storeCurrentRotationDegree();
-
-  ctx.translate(calcTranslate(currentRotationDegree)[0], calcTranslate(currentRotationDegree)[1]);
-
-  ctx.restore();
-  // ctx.translate(canvas.width/2, canvas.height/2);
-  ctx.rotate(-90 * Math.PI/180);
-
-  ctx.drawImage(img,0,0,calcTranslate(currentRotationDegree)[2],calcTranslate(currentRotationDegree)[3]);
-
-  ctx.translate(-calcTranslate(currentRotationDegree)[0], -calcTranslate(currentRotationDegree)[1]);
-}
-
-// -- Crop image to square
-
-
-// -- !! Not working properly, refactor later.
-// -- Crop to 2:3 aspect ratio
-function cropImageTwobyThree() {
-  if (canvas.height > canvas.width) {
-    let offset = canvas.height - canvas.width;
-    let multiple = canvas.height*3 / canvas.width/2;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    $('#canvas').height($('#canvas').width()/2*3);
-    canvas.height = canvas.width/2*3;
-    ctx.drawImage(img,0,-offset/2,canvas.width,canvas.height);
-  }
-}
-
-// -- Clear canvas, hide editor and restore upload nutton
-
-
-function setTextBottom() {
-  textPosition = 1;
-  $('#text-position').text('Bottom');
-}
-
-function drawText() {
-  ctx.font = '48px serif';
-  ctx.fillText($('#meme-text').val(), 10, 10);
-
-}
-
-
-
-
 /// <<<--- Begin Code Refactor Using Knova Library --->>>
 
 let stage = new Konva.Stage({
   container: 'stage',
-  width: 500,
+  width: $('#stage').width(),
   height: 500
 });
+
+
 
 let picLayer = new Konva.Layer();
 let textLayer = new Konva.Layer();
@@ -181,27 +84,80 @@ let image = new Konva.Image({
 picLayer.add(image);
 
 let topText = new Konva.Text({
-  x: 0,
-  y: 50,
-  fontSize: 60,
-  fontFamily: 'Impact',
+  x: 20,
+  fontSize: $('#font-size-select').val(),
+  fontFamily: $('#font-family-select').val(),
   fontStyle: 'bold',
   fill: 'white',
   align: 'center',
   stroke: 'black',
   strokeWidth: 1,
-  width: stage.width(),
-  height: 400,
-  draggable: true
+  width: stage.width()-40,
+  draggable: true,
+  name: 'text',
+  id: 'top'
 
 });
 
-textLayer.add(topText);
-
 let bottomText = new Konva.Text({
-  x: $('#stage').width()/2,
-  y: stage.height()-150
-})
+  x: 20,
+  fontSize: $('#font-size-select').val(),
+  fontFamily: $('#font-family-select').val(),
+  fontStyle: 'bold',
+  fill: 'white',
+  align: 'center',
+  stroke: 'black',
+  strokeWidth: 1,
+  width: stage.width()-40,
+  draggable: true,
+  name: 'text',
+  id: 'bottom'
+
+});
+
+let middleText = new Konva.Text({
+  x: 20,
+  fontSize: $('#font-size-select').val(),
+  fontFamily: $('#font-family-select').val(),
+  fontStyle: 'bold',
+  fill: 'white',
+  align: 'center',
+  stroke: 'black',
+  strokeWidth: 1,
+  width: stage.width()-40,
+  draggable: true,
+  name: 'text',
+  id: 'middle'
+
+});
+
+
+
+textLayer.add(topText);
+textLayer.add(bottomText);
+textLayer.add(middleText);
+
+// -- Transformer class that handles transformation handles
+let tr = new Konva.Transformer();
+textLayer.add(tr);
+
+// -- Reveal tranformation handles around text when clicked or touched
+let selectedTextObject;
+
+function selectTextObjectOnClick(event) {
+    if(!event.target.hasName('text')) {
+      tr.nodes([]);
+      textLayer.draw();
+    }
+    else {
+      selectedTextObject = textObjects[event.target.id()];
+      tr.nodes([event.target]);
+      textLayer.draw();
+    }
+}
+
+stage.on('mouseup touchend', selectTextObjectOnClick);
+
 
 function drawImage() {
   img.onload = function() {
@@ -222,26 +178,34 @@ function drawImage() {
 
     picLayer.batchDraw();
 
+    // -- Reset text position when drawing image. This is useful for correcting the position of text object in cases where there has been a crop, or where a new image of a different dimension is being drawn
+    topText.y(stage.height()*0.05);
+    middleText.y((stage.height()/2) - 60);
+    bottomText.y(stage.height()*0.85);
+    textLayer.draw();
+
     $('#square-crop').removeClass('active');
   }
 
 }
 
+// -- Replace current image
 function replacePicture() {
-  topText.x(0);
-  topText.y(50);
   $('#upload-input')[0].value = '';
   $('#upload-input').click();
 
 }
 
+// -- Clear stage of all content, image and text. Opens modal for confirmation
 function clearArtboard() {
   stage.clear();
-  $('#upload-input')[1].value = '';
+  $('#upload-input')[0].value = '';
   $('.editor').addClass('hidden');
   $('#upload-form').removeClass('hidden');
 }
 
+
+// -- Crop image to square. Restore previous aspect ration when toggled
 function cropImageSquare() {
   if (!$('#square-crop').hasClass('active')) { // -- Check if the crop button is currently active
     if (stage.height() > stage.width()) {
@@ -265,7 +229,6 @@ function cropImageSquare() {
   }
   else {
 
-
     picLayer.offsetX(0);
     picLayer.offsetY(0);
     stage.height(img.naturalHeight / img.naturalWidth * stage.width());
@@ -275,17 +238,75 @@ function cropImageSquare() {
     picLayer.batchDraw();
   }
 
+  topText.y(stage.height()*0.05);
+  middleText.y((stage.height()/2) - 60);
+  bottomText.y(stage.height()*0.85);
+  textLayer.draw();
 
-
-    $('#square-crop').toggleClass('active');
+  $('#square-crop').toggleClass('active');
 }
 
-function setTopText() {
-  topText.text($('#meme-text').val());
-  textLayer.batchDraw();
+
+let textContentHolder = {
+  top: '',
+  middle: '',
+  bottom: ''
+}
+
+let textObjects = {
+  top: topText,
+  middle: middleText,
+  bottom: bottomText
+}
+
+function setText() {
+  textContentHolder[$('#text-position').text().toLowerCase()] = $('#meme-text').val(); // Store the content of the text field in an object holder for the respective text position currently selected
+
+  // -- Set y position of text objects
+  topText.y(stage.height()*0.05);
+  middleText.y((stage.height()/2) - 60);
+  bottomText.y(stage.height()*0.85);
+
+  // -- Store the current text object being edited. The font family and font size functions are applied to this particular text object
+  selectedTextObject = textObjects[$('#text-position').text().toLowerCase()];
+  tr.nodes([]);
+
+  // -- Set the respective text object's text to the content stored for it in the placeholder object (stored from the text input in an earlier function)
+
+  topText.text(textContentHolder['top']);
+  middleText.text(textContentHolder['middle']);
+  bottomText.text(textContentHolder['bottom']);
+
+  textLayer.draw();
+}
+
+// This function is bound to changes in the font family drop down. It sets the value font family value of the current selected text object to the dropdown value and redraws the layer
+function setFontFamily() {
+  selectedTextObject.fontFamily($('#font-family-select').val());
+  textLayer.draw();
+}
+
+// This function is bound to changes in the font size drop down. It sets the value font size value of the current selected text object to the dropdown value and redraws the layer
+function setFontSize() {
+  selectedTextObject.fontSize($('#font-size-select').val());
+  textLayer.draw();
+}
+
+
+// This function changes the visible text on the drop down button for changing text position. It then sets the input field to the tored value for the text object of the respective position
+function setTextPosition(event) {
+
+  $('#text-position').text(event.target.innerHTML.trim());
+  $('#meme-text').val(textContentHolder[$('#text-position').text().toLowerCase()]);
+
 }
 
 function saveCanvas() {
+
+  // -- Deselect any current selections so they don't reflect in the saved image
+  tr.nodes([]);
+  textLayer.draw();
+
 
   function isMobileDevice() {
     return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
@@ -293,14 +314,24 @@ function saveCanvas() {
   let savedImage = stage.toDataURL({
     pixelRatio: 2
   });
-  if (isMobileDevice()) {
 
+  // -- Check if device is mobile. Direct image download is not supported on iOS (download works but file name and extension no supported. In mobile, append the canvas image to a modal popup so user can mannualy save to mobile device)
+  if (isMobileDevice()) {
+    let img = document.createElement('img');
+    img.src = savedImage;
+    img.id = 'stage-img';
+    $('#save-image-spot').empty()
+    $('#save-image-spot').append(img);
+    $('#image-save-modal-button').click();
   }
 
-  let link = document.createElement('a');
-  link.href = savedImage;
-  link.download = 'image.png';
-  link.click();
+  // -- If not on mobile device, download file automatically.
+  else {
+    let link = document.createElement('a');
+    link.href = savedImage;
+    link.download = 'image.png';
+    link.click();
+  }
 
 }
 
@@ -308,16 +339,16 @@ function saveCanvas() {
 
 // -- Bind event listeners to function buttons
 $('#download-button').click(saveCanvas);
-$('#rotate-button').click(rotateCanvas);
 $('#square-crop').click(cropImageSquare);
 $('#clear-button').click(clearArtboard);
 $('#change-pic-button').click(replacePicture);
-$('#top-text-button').click(setTopText);
-$('#bottom-text-button').click(setTextBottom);
-$('#meme-text').keyup(setTopText);
-// $('#two-by-three-button').click(cropImageTwobyThree);
+$('.position-selector-button').click(setTextPosition);
+$('#meme-text').keyup(setText);
+$('#font-family-select').change(setFontFamily);
+$('#font-size-select').change(setFontSize);
 
 
+// -- Hide upload area, reveal canvas and draw image
 function imageInputFormSubmitted(event) {
   // -- Prevent default form submit action
   event.preventDefault();
