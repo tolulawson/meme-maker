@@ -161,4 +161,8 @@ body {
   height: auto;
 }
 
+#text-edit-instruction {
+  transition: transform 0.2s ease-in;
+}
+
 /*# sourceMappingURL=style.css.map */

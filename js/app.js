@@ -278,6 +278,10 @@ function setText() {
   bottomText.text(textContentHolder['bottom']);
 
   textLayer.draw();
+
+  setTimeout(function() {
+    $('#text-edit-instruction').removeClass('hidden');
+  }, 500);
 }
 
 // This function is bound to changes in the font family drop down. It sets the value font family value of the current selected text object to the dropdown value and redraws the layer
